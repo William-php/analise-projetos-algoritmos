@@ -12,4 +12,11 @@ A classe `ReadFile` realiza as seguintes funções principais:
 - **Detecção de Recursão**: Verifica se há recursão no código, o que influencia diretamente a complexidade final.
 - **Cálculo de Complexidade**: Baseado na quantidade de loops aninhados e operações, a classe retorna a análise assintótica e a notação Big-O do pior caso.
 
+
+### Para melhor rendimento do analisador:
+- Insira 'openLoops' quando for abrir um loop e 'closeLoop' para fechar um loop;
+- Declare uma variável por linha, para que assertividade da análise seja melhor;
+
+
+### Exemplo de padrão de código para melhor funcionamento do analisador:
 ![alt text](image.png)
