@@ -8,17 +8,22 @@ public  class ReadFile {
 	private File myFile;
 	private int n;
 	private int k;
-	//private int logN;
+	private String nameFunction;
+	private String lastNameFunction;
+	private int recursion;
+	private boolean recursionBool;
 	private int nElevated;
 	private int openLoop;
-	//private int closeLoop;
+
 	public ReadFile (File myFile) {
 		this.myFile = myFile;
 		this.n = 0;
 		this.k = 0;
-		//this.logN = 0;
+		this.recursion = 0;
 		this.nElevated = 1;
-		this.openLoop = 0;		
+		this.openLoop = 0;
+		this.nameFunction = "";
+		this.recursionBool = false;
 	}
 	public void read() {
 		try {
@@ -37,6 +42,14 @@ public  class ReadFile {
 	
 	public void analyzer(String data) {
 
+		this.getFunctionName(data);
+		if (data.contains(this.nameFunction) && this.nameFunction.length() > 0) {						
+			if (this.lastNameFunction.compareTo(this.nameFunction) > 0 && !this.lastNameFunction.contains("sizeof")) {
+				this.recursionBool = true;
+				return;
+			}
+			
+		}
 		
 		if (data.indexOf("openLoop") > 0 && this.openLoop == 0) {			
 			this.openLoop++;
@@ -57,8 +70,23 @@ public  class ReadFile {
 		}
 	}
 	
-	public void result() {
-		System.out.println("n: " + this.n + "nElevated: " + this.nElevated + "k: " + this.k);
+	public void getFunctionName(String data) {
+		String[] arrayData = data.split(" ");
+		
+		for (String str : arrayData) {
+			if (str.contains("(")) {
+				this.lastNameFunction = this.nameFunction;
+				this.nameFunction = str.substring(0, str.indexOf("("));
+			}
+		}
+        
+	}
+	
+	public void result() {		
+		if (this.recursionBool) {
+			System.out.println("Notação O (pior caso): O(nlogn)");
+			return;
+		}
 		if (this.n > 0 && this.nElevated == 1) {
 			System.out.println("Análise assintótica: " + this.n + "n" + " + " + this.k);
 			System.out.println("Notação O (pior caso): O(n)");
