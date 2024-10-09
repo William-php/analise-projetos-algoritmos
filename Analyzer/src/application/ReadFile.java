@@ -102,8 +102,6 @@ public  class ReadFile {
 			System.out.println("Notação O (pior caso): O(n^" + this.nElevated + ")");
 			return;
 		}
-		
-		
 	}
 	
 }
